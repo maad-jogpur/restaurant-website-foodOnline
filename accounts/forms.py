@@ -1,5 +1,6 @@
 from django import forms
 from . models import User,UserProfile
+from vendors.models import Vendor
 
 
 class UserForm(forms.ModelForm):
@@ -18,3 +19,4 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match!")
         
         return cleaned_data
+    
