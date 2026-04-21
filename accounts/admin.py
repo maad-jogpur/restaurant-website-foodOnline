@@ -6,7 +6,7 @@ from . models import User,UserProfile
 # Register your models here.
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('email','first_name','last_name','role','is_superadmin')
+    list_display = ('email','first_name','last_name','role','is_active')
     ordering = ('-date_joined',)
     list_filter = ()
     filter_horizontal = ()
