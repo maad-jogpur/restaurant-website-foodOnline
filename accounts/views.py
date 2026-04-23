@@ -8,6 +8,7 @@ from django.contrib.auth.tokens import default_token_generator
 
 from vendors.forms import VendorForm
 from .forms import UserForm
+from vendors.models import Vendor
 from .models import User,UserProfile
 from . utils import get_redirectURL,send_verification_email
 # Create your views here.
@@ -69,7 +70,7 @@ def registerUser(request):
 
         else:
             print("Invalid form")
-            print(form.errors)
+     
           
     else:
         form = UserForm()
@@ -113,7 +114,7 @@ def registerVendor(request):
             return redirect('registerVendor')
         else:
             print("Invalid form")
-            print(form.errors)
+          
     else:
         form = UserForm()
         v_form = VendorForm()
