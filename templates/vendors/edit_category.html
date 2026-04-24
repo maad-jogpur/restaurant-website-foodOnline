@@ -18,6 +18,8 @@
 								<div class="user-holder">
 									<h5 class="text-uppercase">Build Your Food Menu</h5>
                                     <hr>
+                                    <a class="btn btn-secondary" href="{%url 'menu_builder'%}"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</a>
+                                    <br><br>
                                     <h6>Edit Category</h6>
                                     
 									 <!-- Render Form -->
@@ -50,6 +52,7 @@
                                         {%endfor%}
 
                                         <button type="submit" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i>Update</button>
+                                        <a href="{%url 'delete_category' category.id%}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this category?')"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
                                       </form>
 									 <!-- Form End-->
 								</div>

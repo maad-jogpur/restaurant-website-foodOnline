@@ -1,7 +1,7 @@
 from django.db import models
 from vendors.models import Vendor
 # Create your models here.
-
+ 
 class Category(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     category_name = models.CharField(max_length=100,unique=True)
