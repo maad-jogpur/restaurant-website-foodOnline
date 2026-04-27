@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
+from django.utils.text import slugify
 
 from vendors.forms import VendorForm
 from .forms import UserForm
@@ -99,10 +100,12 @@ def registerVendor(request):
             user.role = User.VENDOR
             user.save()
 
+            vendor_name = v_form.cleaned_data['vendor_name']
             vendor = v_form.save(commit=False)
             vendor.user = user
             user_profile =UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
+            vendor.slug = slugify(vendor_name)+'-'+str(user.id)
             vendor.save()
 
             # Send Verification Email
@@ -114,6 +117,8 @@ def registerVendor(request):
             return redirect('registerVendor')
         else:
             print("Invalid form")
+            print(form.errors)
+            print(v_form.errors)
           
     else:
         form = UserForm()
