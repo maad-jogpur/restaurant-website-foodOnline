@@ -20,9 +20,51 @@ function onPlaceChanged (){
         document.getElementById('id_address').placeholder = "Start typing...";
     }
     else{
-        console.log('place name=>', place.name)
+        // console.log('place name=>', place.name)
     }
+
     // get the address components and assign them to the fields
+    // console.log(place)
+    var geocoder = new google.maps.Geocoder()
+    var address = document.getElementById('id_address').value
+    console.log(address)
+
+    geocoder.geocode({'address':address}, function(results,status){
+        // console.log('results=====>',results)
+        // console.log('status=====>',status)
+
+        if (status == google.maps.GeocoderStatus.OK){
+            var latitude = results[0].geometry.location.lat()
+            var longitude = results[0].geometry.location.lng()
+            
+            $('#id_latitude').val(latitude)
+            $('#id_longitude').val(longitude)
+
+            $('#id_address').val(address)
+        }
+    });
+
+    // Loop through the address component and assign other address data
+    console.log(place.address_components)
+    for(var i=0; i<place.address_components.length;i++){
+        for (var j=0 ; j<place.address_components[i].types.length; j++){
+            // Get country
+            if (place.address_components[i].types[j] == 'country'){
+                $('#id_country').val(place.address_components[i].long_name)
+            }
+            if (place.address_components[i].types[j] == 'administrative_area_level_1'){
+                $('#id_state').val(place.address_components[i].long_name)
+            }
+            if (place.address_components[i].types[j] == 'administrative_area_level_3'){
+                $('#id_city').val(place.address_components[i].long_name)
+            }
+            if (place.address_components[i].types[j] == 'postal_code'){
+                $('#id_pincode').val(place.address_components[i].long_name)
+            } else{
+                $('#id_pincode').val("")
+            }
+        }
+    }
 }
 
 
