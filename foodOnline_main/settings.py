@@ -154,4 +154,4 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <django.handler@gmail.com>'
 
 
-GOOGLE_API_KEY = 'AIzaSyC3CgWl6exaVuS__ksyC8042Q1YvrOpduk'
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
