@@ -141,7 +141,7 @@ def delete_cart(request,cart_id):
 
 
 def search(request):
-    if not 'address' in request.path:
+    if not 'address' in request.GET:
         return redirect('marketplace')
     
     else:

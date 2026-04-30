@@ -85,9 +85,9 @@
 										<li class="has-border">
 											<figure>
 												{% if vendor.user_profile.profile_picture %}
-												<a href="#"><img src="{{vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt=""></a>
+												<a href="{%url 'vendor_detail' vendor.slug%}"><img src="{{vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt=""></a>
 												{% else %}
-												<a href="#"><img src="{% static "assets/extra-images/default-profile.PNG" %}" class="attachment-full size-full wp-post-image" alt=""></a>
+												<a href="{%url 'vendor_detail' vendor.slug%}"><img src="{% static "assets/extra-images/default-profile.PNG" %}" class="attachment-full size-full wp-post-image" alt=""></a>
 												{% endif %}
 											</figure>
 										</li>
@@ -135,13 +135,22 @@
 												
 												<div class="post-title">
 													<h5>
-														<a href="listing-detail.html">{{vendor.vendor_name}}</a>
+														<a href="{%url 'vendor_detail' vendor.slug%}">{{vendor.vendor_name}}</a>
 													</h5>
 												</div>
 											</div>
-											{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pincode %}
-											<address>  {{vendor.user_profile.city}}, {{vendor.user_profile.state}}, {{vendor.user_profile.pincode}}</address>
-											{% endif %}
+											
+											<div class="vendor-info">
+
+												{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pincode %}
+													<p>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pincode }}</p>
+												{% endif %}
+
+												{% if vendor.km %}
+													<p><small><b>{{ vendor.km }} km</b> away</small></p>
+												{% endif %}
+
+											</div>
 											
 										</div>
 									</li>
