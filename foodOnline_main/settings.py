@@ -10,8 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import config
+
+
+os.add_dll_directory(r"C:\Users\Dell\Desktop\foodOnline\env\Lib\site-packages\osgeo")
+os.add_dll_directory(r"C:\Users\Dell\Desktop\foodOnline\env\Lib\site-packages\shapely.libs")
+
+os.environ['PROJ_LIB'] = r"C:\Users\Dell\Desktop\foodOnline\env\Lib\site-packages\osgeo\data\proj"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
     'vendors',
     'menu',
     'marketplace',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +92,8 @@ WSGI_APPLICATION = 'foodOnline_main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE':'django.contrib.gis.db.backends.postgis',
         'NAME': config('DB_NAME'),
         'USER':config('DB_USER'),
         'PASSWORD':config('DB_PASSWORD'),
@@ -154,4 +163,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <django.handler@gmail.com>'
 
 
-GOOGLE_API_KEY = 'AIzaSyC3CgWl6exaVuS__ksyC8042Q1YvrOpduk'
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+GDAL_LIBRARY_PATH = r"C:\Users\Dell\Desktop\foodOnline\env\Lib\site-packages\osgeo\gdal.dll"
+
+GEOS_LIBRARY_PATH = r"C:\Users\Dell\Desktop\foodOnline\env\Lib\site-packages\shapely.libs\geos_c-072b7a9224d16d3e4ab2395bb855b2d3.dll"

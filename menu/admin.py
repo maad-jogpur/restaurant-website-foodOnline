@@ -11,6 +11,7 @@ class FoodItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('food_title',)}
     list_display = ('food_title','category','price','is_available','updated_at')
     search_fields = ('food_title','category__category_name','vendor__vendor_name','price')
+    list_editable = ('is_available',)
     list_filter = ('is_available',)
 
 admin.site.register(Category,CategoryAdmin)

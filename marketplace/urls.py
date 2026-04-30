@@ -16,5 +16,8 @@ urlpatterns = [
     # CART
     path('cart/',views.cart,name='cart'),
 
+    # SEARCH
+    path('search/',views.search, name='search')
+
 ]
 
