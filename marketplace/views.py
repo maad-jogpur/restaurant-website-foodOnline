@@ -6,11 +6,13 @@ from django.db.models import Q
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
+from datetime import date,datetime
 
 from.context_processors import get_cart_count,get_cart_amounts
 from . models import Cart
 from vendors.models import Vendor
 from menu.models import Category,FoodItem
+from vendors.models import OpeningHour
 # Create your views here.
 
 def marketplace(request):
@@ -33,6 +35,7 @@ def vendor_detail(request,vendor_slug):
         )
     )
 
+
         #  FOR SHOWING CART COUNT AGAINST EACH PRODUCTS
 
             # if request.user.is_authenticated:
@@ -50,13 +53,23 @@ def vendor_detail(request,vendor_slug):
     else:
         cart_items = None
 
+    # GET CURRENT DAY WORKING HOUR
+    today_date = date.today()
+    today = today_date.isoweekday()
+    current_day_hours = OpeningHour.objects.filter(vendor=vendor,day = today)
+    
+   
+    
 
+
+    opening_hours = OpeningHour.objects.filter(vendor=vendor).order_by('day','-from_hour')
 
     context = {
         'vendor':vendor,
         'categories':categories,
         'cart_items':cart_items,
-       
+        'opening_hours':opening_hours,
+        'current_day_hours':current_day_hours,
     }
     return render (request,'marketplace/vendor_detail.html',context)
 

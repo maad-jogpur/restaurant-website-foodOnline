@@ -11,13 +11,12 @@ def get_or_set_current_location(request):
     if 'lat' in request.session:
         lat = request.session['lat']
         lng = request.session['lng']
-        print(type(lat))
         return lng,lat
     elif 'lat' in request.GET:
         lat = request.GET.get('lat')
         lng = request.GET.get('lng')
-        lat = request.session['lat'] = lat
-        lng = request.session['lng'] = lng
+        request.session['lat'] = lat
+        request.session['lng'] = lng
     else:
         return None
 
